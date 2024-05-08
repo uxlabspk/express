@@ -3,8 +3,9 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 
+
 const firebaseConfig = {
-  apiKey: "AIzaSyBUad-LOK_d1ToY6jfpoYVWvInXqQ9H96I",
+  apiKey: import.meta.env.VITE_API_KEY,
   authDomain: "express-eec38.firebaseapp.com",
   projectId: "express-eec38",
   storageBucket: "express-eec38.appspot.com",
