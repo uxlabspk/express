@@ -2,18 +2,19 @@ import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../config";
 import { useState } from "react";
 import { useEffect } from "react";
-import Home from '../pages/Home';
 import { FcGoogle } from "react-icons/fc";
-
+import { useNavigate } from "react-router-dom";
 
 
 export default function GoogleButton() {
     const [userData, setUserData] = useState('');
+    const navigate = useNavigate();
 
     const handleSignIn = () => {
         signInWithPopup(auth, provider).then((data) => {    
             localStorage.setItem('user', data.user);
             console.log("sdf");
+            navigate("/");
         });
     }
 

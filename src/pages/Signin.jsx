@@ -10,7 +10,8 @@ export default function Signin() {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    const handleSignIn = async () => {
+    const handleSignIn = (event) => {
+        event.preventDefault();
         const auth = getAuth();
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
@@ -33,7 +34,7 @@ export default function Signin() {
                 <img
                     class="mx-auto h-10 w-auto"
                     src="/vite.svg"
-                    alt="Your Company"
+                    alt="express logo"
                 />
                 <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
                     Sign in to your account
@@ -41,7 +42,7 @@ export default function Signin() {
             </div>
 
             <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                <form class="space-y-6" action="#" onClick={handleSignIn}>
+                <form class="space-y-6" onSubmit={handleSignIn}>
                     <div>
                         <label
                             for="email"
@@ -50,14 +51,14 @@ export default function Signin() {
                             Email address
                         </label>
                         <div class="mt-2">
-                        <input
-                            type="email"
-                            placeholder="Email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                            className="block w-full rounded-md border-0 py-1.5 px-2 shadow-sm ring-1 ring-inset focus:outline-none text-white bg-[#1D2432] ring-gray-700 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        />
+                            <input
+                                type="email"
+                                placeholder="Email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                                className="block w-full rounded-md border-0 py-1.5 px-2 shadow-sm ring-1 ring-inset focus:outline-none text-white bg-[#1D2432] ring-gray-700 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            />
                         </div>
                     </div>
 
@@ -83,11 +84,11 @@ export default function Signin() {
                     </div>
 
                     <div>
-                    <button
-                        type="submit"
-                        className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        <button
+                            type="submit"
+                            className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         >
-                        Sign in</button>
+                            Sign in</button>
                     </div>
                 </form>
 
