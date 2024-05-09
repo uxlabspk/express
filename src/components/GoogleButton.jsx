@@ -3,11 +3,12 @@ import { auth, provider } from "../config";
 import { useState } from "react";
 import { useEffect } from "react";
 import Home from '../pages/Home';
+import { FcGoogle } from "react-icons/fc";
 
 
 
 export default function GoogleButton() {
-    // const [userData, setUserData] = useState('');
+    const [userData, setUserData] = useState('');
 
     const handleSignIn = () => {
         signInWithPopup(auth, provider).then((data) => {    
@@ -16,13 +17,16 @@ export default function GoogleButton() {
         });
     }
 
-    // useEffect(() => {
-    //     setUserData(localStorage.getItem('user'))
-    // });
+    useEffect(() => {
+        setUserData(localStorage.getItem('user'))
+    });
 
     return (
         <div>
-            <button className="py-2 px-8 bg-green-900 text-white" onClick={handleSignIn}>Google</button>
+            <button className="flex items-center justify-center gap-2 border w-full py-2 rounded-md " onClick={handleSignIn}>
+                <FcGoogle />
+                Login with Google
+            </button>
         </div>
     );
 }

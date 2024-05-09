@@ -14,7 +14,7 @@ function App() {
     <div className="px-12 mx-auto text-white bg-primary">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route exact path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/agile" element={<Agile />} />
           <Route path="/issues" element={<Issues />} />
