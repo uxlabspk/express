@@ -3,15 +3,22 @@ import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 
 function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [openAvatarDropdown, setOpenAvatarDropdown] = useState(false);
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
-  }
+  };
+
+  const toggleAvatarDropdown = () => {
+    setOpenAvatarDropdown(!openAvatarDropdown);
+  };
 
   useEffect(() => {
     const auth = getAuth();
@@ -24,8 +31,16 @@ function NavBar() {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, []);  
 
+  const signout = () => {
+    const auth = getAuth();
+    auth.signOut().then(() =>{
+      navigate('/');
+    }).catch((error) => {
+      console.log("Error Occur : ", error);
+    });
+  }
 
   return (
     <div className='flex items-center justify-between h-20'>
@@ -48,8 +63,14 @@ function NavBar() {
         
         {user ? (
           <div>
-            <img src={user.photoURL} alt="user profile pic" width={45} className='rounded-full' />
-            {/* <p>{user.displayName}</p> */}
+            <img src={user.photoURL ? user.photoURL : '/default-user.svg'} alt="user profile pic" width={30} className='rounded-full relative transition-all duration-500 border' onClick={toggleAvatarDropdown} />
+            <div className={`absolute ${openAvatarDropdown ? 'block' : 'hidden'} right-10 z-10 mt-2 w-36  rounded-md bg-white text-black shadow-lg`}>
+              <div className='p-2 flex flex-col '>
+                  <Link to={'/profile'} className='block p-2 hover:bg-indigo-600 rounded-md hover:text-white'>Profile</Link>
+                  <Link to={'/settings'} className='block p-2 hover:bg-indigo-600 rounded-md hover:text-white'>Settings</Link>
+                  <Link onClick={signout} className='block p-2 hover:bg-indigo-600 rounded-md hover:text-white'>Sign out</Link>
+              </div>
+            </div>
           </div>
         ) : (
           <Link to={'/signin'} className='bg-indigo-600 hover:bg-indigo-700 px-8 py-2 rounded-md'>Login</Link>
